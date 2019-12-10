@@ -3,7 +3,7 @@
 To Run:
 
 ### First Time
-npm install
+npm install  
 electron .
 
 ### Next Time Onwards:
