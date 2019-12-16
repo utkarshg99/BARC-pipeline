@@ -3,30 +3,30 @@
         "name": "STAR.mp4",
         "path": "../videos/STAR.mp4",
         "number": 0,
-        "secs": 77
+        "secs": 7.7
     },
     {
         "name": "HAHV.mp4",
         "path": "../videos/HAHV.mp4",
         "number": 1,
-        "secs": 68
+        "secs": 6.8
     },
     {
         "name": "LAHV.mp4",
         "path": "../videos/LAHV.mp4",
         "number": 2,
-        "secs": 61
+        "secs": 6.1
     },
     {
         "name": "HALV.mp4",
         "path": "../videos/HALV.mp4",
         "number": 3,
-        "secs": 69
+        "secs": 6.9
     },
     {
         "name": "LALV.mp4",
         "path": "../videos/LALV.mp4",
         "number": 4,
-        "secs": 89
+        "secs": 8.9
     }
 ]}

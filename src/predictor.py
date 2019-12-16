@@ -16,7 +16,24 @@ model_O = joblib.load('MODEL/Openness.pkl')
 model_E = joblib.load('MODEL/Extraversion.pkl')
 model_ES = joblib.load('MODEL/Emotional_Stability.pkl')
 model_C = joblib.load('MODEL/Conscientiousness.pkl')
-
-test = pd.read_csv(fname)
+pca = PCA(n_components = 20)
+hahv = pd.read_csv('hahv.csv', header=None)
+hahv = np.array(hahv)
+lahv = pd.read_csv('lahv.csv', header=None)
+lahv = np.array(lahv)
+halv = pd.read_csv('halv.csv', header=None)
+halv = np.array(halv)
+lalv = pd.read_csv('lalv.csv', header=None)
+lalv = np.array(lalv)
+test = pd.read_csv(fname, header=None)
 test = np.array(test)
-print(model_A.predict(test), model_O.predict(test), model_E.predict(test), model_ES.predict(test), model_C.predict(test))
+x = np.concatenate((hahv, halv, lahv, lalv, test))
+# print(np.shape(x))
+test = pca.fit_transform(x)
+dicx = {}
+dicx['A']=model_A.predict(test)[-1]
+dicx['O']=model_O.predict(test)[-1]
+dicx['E']=model_E.predict(test)[-1]
+dicx['ES']=model_ES.predict(test)[-1]
+dicx['C']=model_C.predict(test)[-1]
+print(dicx)

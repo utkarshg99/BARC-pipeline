@@ -13,8 +13,8 @@ from biosppy import storage
 import sys
 
 fnam = sys.argv[1]
-fname = '../recorded/'+fnam
-fnamex = './extracted/'+fnam[:len(fnam)-4]+'f.csv'
+fname = './recorded/'+fnam
+fnamex = './src/extracted/'+fnam[:len(fnam)-4]+'f.csv'
 
 def avg_rising(GSR_vals, t):
     index = 1
@@ -141,26 +141,26 @@ for i in range(IBI.size):
     if (IBI[i]< IBI_DOWN_Val):
         count+=1
 IBI_DOWN = count/IBI.size *100
-HRV = []
-for i in range(IBI.size-1):
-    HRV.append(IBI[i+1]- IBI[i])
-HRV = np.asarray(HRV)
-HRV_MEAN = np.mean(HRV)
-HRV_STD = np.std(HRV)
-HRV_SKEW = scipy.stats.skew(HRV)
-HRV_KURTOSIS = scipy.stats.kurtosis(HRV)
-HRV_UP_Val = HRV_MEAN +HRV_STD 
-count =0
-for i in range(HRV.size):
-    if (HRV[i]> HRV_UP_Val):
-        count+=1
-HRV_UP = count/HRV.size *100
-HRV_DOWN_Val = HRV_MEAN - HRV_STD 
-count =0
-for i in range(HRV.size):
-    if (HRV[i]< HRV_DOWN_Val):
-        count+=1
-HRV_DOWN = count/HRV.size *100
+# HRV = []
+# for i in range(IBI.size-1):
+#     HRV.append(IBI[i+1]- IBI[i])
+# HRV = np.asarray(HRV)
+# HRV_MEAN = np.mean(HRV)
+# HRV_STD = np.std(HRV)
+# HRV_SKEW = scipy.stats.skew(HRV)
+# HRV_KURTOSIS = scipy.stats.kurtosis(HRV)
+# HRV_UP_Val = HRV_MEAN +HRV_STD 
+# count =0
+# for i in range(HRV.size):
+#     if (HRV[i]> HRV_UP_Val):
+#         count+=1
+# HRV_UP = count/HRV.size *100
+# HRV_DOWN_Val = HRV_MEAN - HRV_STD 
+# count =0
+# for i in range(HRV.size):
+#     if (HRV[i]< HRV_DOWN_Val):
+#         count+=1
+# HRV_DOWN = count/HRV.size *100
 Heart_rate = 1/IBI*60*1000
 Heart_rate_MEAN = np.mean(Heart_rate)
 Heart_rate_STD = np.std(Heart_rate)
@@ -190,18 +190,12 @@ ECG_features.append(Heart_rate_SKEW)
 ECG_features.append(Heart_rate_KURTOSIS)
 ECG_features.append(Heart_rate_UP)
 ECG_features.append(Heart_rate_DOWN)
-ECG_features.append(HRV_MEAN)
-ECG_features.append(HRV_STD)
-ECG_features.append(HRV_SKEW)
-ECG_features.append(HRV_KURTOSIS)
-ECG_features.append(HRV_UP)
-ECG_features.append(HRV_DOWN)
 f_dash, Pxx_den = signal.welch(sig, fs =sampling_freq, nfft=100000)
 Pxx_den = list(Pxx_den)
 for i in range(5):
-    ECG_features += Pxx_den[i]
+    ECG_features.append(Pxx_den[i])
 for i in range(0, 255, 24):
-    ECG_features += Pxx_den[i]
+    ECG_features.append(Pxx_den[i])
 with open(fnamex, 'w', newline='') as file:
     writer = csv.writer(file)
-    writer.writerow([ECG_features[0], ECG_features[1],ECG_features[2],ECG_features[3],ECG_features[4],ECG_features[5],ECG_features[6],ECG_features[7],ECG_features[8],ECG_features[9],ECG_features[10],ECG_features[11],ECG_features[12],ECG_features[13],ECG_features[14],ECG_features[15],ECG_features[16],ECG_features[17],ECG_features[18],ECG_features[19],ECG_features[20],ECG_features[21],ECG_features[22],ECG_features[23],ECG_features[24],ECG_features[25],ECG_features[26],ECG_features[27],ECG_features[28],ECG_features[29],ECG_features[30],ECG_features[31],ECG_features[32],ECG_features[33],ECG_features[34],ECG_features[35],Feature_Set['ftre']['Mean_Skin_Resistance'], Feature_Set['ftre']['Mean_Res_Derivative'], Feature_Set['ftre']['Mean_Res_Neg_Derivative'], Feature_Set['ftre']['Percentage_of_Neg_Derivative_Samp'], Feature_Set['ftre']['Std_Res'], Feature_Set['ftre']['No_of_Local_Minima_Skin_Cond'], Feature_Set['ftre']['Avg_Rising_Time'], Feature_Set['ftre']['Log_Power_Dens_0_to_0.4Hz'][1][0],Feature_Set['ftre']['Log_Power_Dens_0_to_0.4Hz'][1][1],Feature_Set['ftre']['Log_Power_Dens_0_to_0.4Hz'][1][2],Feature_Set['ftre']['Log_Power_Dens_0_to_0.4Hz'][1][3],Feature_Set['ftre']['Std_Cond'],Feature_Set['ftre']['Mean_Cond_Derivatives'],Feature_Set['ftre']['Mean_Abs_Cond_Derivatives'],Feature_Set['ftre']['Mean_Abs_Cond_Second_Derivatives'],Feature_Set['ftre']['Num_Min_Res'],Feature_Set['ftre']['Log_Power_Dens_0_to_2.4Hz'][1][0],Feature_Set['ftre']['Log_Power_Dens_0_to_2.4Hz'][1][1],Feature_Set['ftre']['Log_Power_Dens_0_to_2.4Hz'][1][2],Feature_Set['ftre']['Log_Power_Dens_0_to_2.4Hz'][1][3],Feature_Set['ftre']['zcr_SCSR'],Feature_Set['ftre']['Mean_SCSR'],Feature_Set['ftre']['zcr_SCVSR'],Feature_Set['ftre']['Peak_SCVSR']])
+    writer.writerow([ECG_features[0], ECG_features[1],ECG_features[2],ECG_features[3],ECG_features[4],ECG_features[5],ECG_features[6],ECG_features[7],ECG_features[8],ECG_features[9],ECG_features[10],ECG_features[11],ECG_features[12],ECG_features[13],ECG_features[14],ECG_features[15],ECG_features[16],ECG_features[17],ECG_features[18],ECG_features[19],ECG_features[20],ECG_features[21],ECG_features[22],ECG_features[23],ECG_features[24],ECG_features[25],ECG_features[26],ECG_features[27],Feature_Set['ftre']['Mean_Skin_Resistance'], Feature_Set['ftre']['Mean_Res_Derivative'], Feature_Set['ftre']['Mean_Res_Neg_Derivative'],Feature_Set['ftre']['Percentage_of_Neg_Derivative_Samp'], Feature_Set['ftre']['Std_Res'], Feature_Set['ftre']['No_of_Local_Minima_Skin_Cond'],Feature_Set['ftre']['Avg_Rising_Time'], Feature_Set['ftre']['Log_Power_Dens_0_to_0.4Hz'][1][0],Feature_Set['ftre']['Log_Power_Dens_0_to_0.4Hz'][1][1],Feature_Set['ftre']['Log_Power_Dens_0_to_0.4Hz'][1][2],Feature_Set['ftre']['Log_Power_Dens_0_to_0.4Hz'][1][3],Feature_Set['ftre']['Std_Cond'],Feature_Set['ftre']['Mean_Cond_Derivatives'],Feature_Set['ftre']['Mean_Abs_Cond_Derivatives'],Feature_Set['ftre']['Mean_Abs_Cond_Second_Derivatives'],Feature_Set['ftre']['Num_Min_Res'],Feature_Set['ftre']['Log_Power_Dens_0_to_2.4Hz'][1][0],Feature_Set['ftre']['Log_Power_Dens_0_to_2.4Hz'][1][1],Feature_Set['ftre']['Log_Power_Dens_0_to_2.4Hz'][1][2],Feature_Set['ftre']['Log_Power_Dens_0_to_2.4Hz'][1][3],Feature_Set['ftre']['zcr_SCSR'],Feature_Set['ftre']['Mean_SCSR'],Feature_Set['ftre']['zcr_SCVSR'],Feature_Set['ftre']['Peak_SCVSR']])

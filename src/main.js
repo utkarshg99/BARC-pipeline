@@ -32,7 +32,7 @@ function setStat() {
     }
   }
   else if(statusPlay == "waiting") {
-    if(secpassed>=7){
+    if(secpassed>=0.7){
       statusPlay = "toStart";
       ipc.sendSync('syncStopRec', 'stop')
       ipc.sendSync("syncStartFeatureExtraction", userJSON);

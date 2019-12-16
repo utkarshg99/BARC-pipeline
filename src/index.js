@@ -89,9 +89,12 @@ ipc.on("syncChangeFileName", (event, arg) => {
 
 ipc.on("syncStartFeatureExtraction", (event, arg) => {
   user = arg;
-  let command = 'python3 testextraction.py '+user.filename;
+  let command = 'python3 ./src/testextraction.py '+user.filename;
   chx = exec(command, (error, stdout, stderr) => {
     if (error) {
+      console.log(error)
+      console.log(stdout)
+      console.log(stderr)
       return;
     }
   });
