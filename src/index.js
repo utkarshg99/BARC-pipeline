@@ -13,12 +13,13 @@ if (require('electron-squirrel-startup')) { // eslint-disable-line global-requir
 let mainWindow;
 let currVid=-1;
 let vidarr = JSON.parse(fs.readFileSync('./videos.json')).data
-fs.writeFileSync('nuxtstat.json', "false");
+fs.writeFileSync('nuxtstat.json', "true");
 let user = {"status": "newUser"}
 var chx;
 
 const createWindow = () => {
   mainWindow = new BrowserWindow({show: false, webPreferences: {nodeIntegration: true}});
+  mainWindow.setMenu(null)
   mainWindow.maximize();
   mainWindow.show();
   mainWindow.loadURL(`file://${__dirname}/index.html`);
@@ -83,6 +84,17 @@ ipc.on("syncChangeFileName", (event, arg) => {
   user = arg;
   user.filename = user.fname+user.mname+user.lname+currVid+".csv";
   fs.writeFileSync('user.json', JSON.stringify(user));
+  event.returnValue = user;
+})
+
+ipc.on("syncStartFeatureExtraction", (event, arg) => {
+  user = arg;
+  let command = 'python3 testextraction.py '+user.filename;
+  chx = exec(command, (error, stdout, stderr) => {
+    if (error) {
+      return;
+    }
+  });
   event.returnValue = user;
 })
 

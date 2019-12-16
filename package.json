@@ -45,6 +45,7 @@
     }
   },
   "dependencies": {
+    "electron-builder": "^21.2.0",
     "electron-squirrel-startup": "^1.0.0",
     "fs": "0.0.1-security",
     "serialport": "^8.0.5"

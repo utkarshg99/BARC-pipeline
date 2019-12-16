@@ -8,6 +8,7 @@ let userJSON = ipc.sendSync('syncGetUserStat', 'get')
 
 function setStat() {
   if(userJSON.status=="newUser"){
+    document.getElementById("app").style.display=""
     return;
   }
   else if (statusPlay == "toStart") {
@@ -31,9 +32,10 @@ function setStat() {
     }
   }
   else if(statusPlay == "waiting") {
-    if(secpassed>=30){
+    if(secpassed>=7){
       statusPlay = "toStart";
       ipc.sendSync('syncStopRec', 'stop')
+      ipc.sendSync("syncStartFeatureExtraction", userJSON);
       stopVideo();
     }
   }

@@ -1,0 +1,8 @@
+numpy
+scipy
+sklearn
+matplotlib
+pandas
+biosppy
+pyserial
+pymongo

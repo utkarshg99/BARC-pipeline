@@ -6,26 +6,26 @@
         "secs": 77
     },
     {
-        "name": "2.mp4",
-        "path": "../videos/2.mp4",
+        "name": "HAHV.mp4",
+        "path": "../videos/HAHV.mp4",
         "number": 1,
         "secs": 68
     },
     {
-        "name": "11.mp4",
-        "path": "../videos/11.mp4",
+        "name": "LAHV.mp4",
+        "path": "../videos/LAHV.mp4",
         "number": 2,
         "secs": 61
     },
     {
-        "name": "23.mp4",
-        "path": "../videos/23.mp4",
+        "name": "HALV.mp4",
+        "path": "../videos/HALV.mp4",
         "number": 3,
         "secs": 69
     },
     {
-        "name": "28.mp4",
-        "path": "../videos/28.mp4",
+        "name": "LALV.mp4",
+        "path": "../videos/LALV.mp4",
         "number": 4,
         "secs": 89
     }

@@ -2,7 +2,8 @@
 <html>
 
 <head>
-  <link rel="stylesheet" href="./index.css" />
+  <link rel="stylesheet" href="css/index.css">
+  <meta charset="utf-8">
   <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
@@ -19,45 +20,78 @@
     </div>
     <h2 style="text-align: center;" id="ends"></h2>
   </div>
-  <div id="app">
-    <v-app style=" background: #000000;">
-      <template dark>
-        <v-row justify="center">
-          <v-dialog v-model="dialog" persistent max-width="600px">
-            <v-card dark>
-              <v-card-title>
-                <span class="headline">User Profile</span>
-              </v-card-title>
-              <v-card-text>
-                <v-container>
-                  <v-row>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field label="First name*" v-model="fname" required></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field label="Middle name" v-model="mname"></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field label="Last name*" v-model="lname" persistent-hint required></v-text-field>
-                    </v-col>
-                    <v-col cols="12">
-                      <v-text-field label="Email*" v-model="email" required></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6">
-                      <v-text-field single-line label="Age" v-model="age" type="number"></v-text-field>
-                    </v-col>
-                  </v-row>
-                </v-container>
-                <small>*indicates required field</small>
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="storeData">Save</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
-        </v-row>
-      </template>
+  <div id="app" style="display: none;">
+    <v-app>
+      <v-app-bar color="teal" flat prominent app>
+        <v-img src="images/logo.png" max-height="120px" contain></v-img>
+      </v-app-bar>
+      <v-content>
+        <p style="display: inline-block; padding: 30px; padding-bottom: 0px;">
+          BARC India is the singular currency of Television Measurement in India and it has been releasing data since April 2015.
+          To ensure accountable and accurate measurement of data, BARC India has a state-of-the-art infrastructure that runs behind the scenes 24X7,
+          upholding the robustness of the whole system. The infrastructure pivots itself on two key pegs – Statistics and Technology.
+        </p>
+        <v-list style="padding: 30px; padding-bottom: 0px;">
+          <v-list-item> Openness to experience : Openness is a general appreciation for art, emotion, adventure, unusual ideas, imagination, curiosity, and variety of experience. </v-list-item>
+          <v-list-item> Conscientiousness : Conscientiousness is a tendency to display self-discipline, act dutifully, and strive for achievement against measures or outside expectations. It is related to the way in which people control, regulate, and direct their impulses. </v-list-item>
+          <v-list-item> Extraversion : Extraversion is characterized by breadth of activities (as opposed to depth), surgency from external activity/situations, and energy creation from external means. </v-list-item>
+          <v-list-item> Agreeableness : The agreeableness trait reflects individual differences in general concern for social harmony. Agreeable individuals value getting along with others. They are generally considerate, kind, generous, trusting and trustworthy, helpful, and willing to compromise their interests with others. Agreeable people also have an optimistic view of human nature. </v-list-item>
+          <v-list-item> Neuroticism : Neuroticism is the tendency to experience negative emotions, such as anger, anxiety, or depression. It is sometimes called emotional instability, or is reversed and referred to as emotional stability. </v-list-item>
+        </v-list>
+        <template>
+          <div class="text-center">
+            <v-checkbox class="justify-center" v-model="accept">
+              <template v-slot:label>
+                <div><b> I understand what is written above and I am willing to provide my data for the same. </b></div>
+              </template>
+            </v-checkbox>
+            <v-alert class="transition-swing" type="warning" :value="alertForAccept" transition="scale-transition" :icon='false'> Please accept the Terms and Conditions by clicking on the checkbox above. </v-alert>
+            <v-btn depressed large color="primary" @click="launchModal()">Begin</v-btn>
+          </div>
+        </template>
+        <template>
+          <v-row justify="center">
+            <v-dialog v-model="dialog" persistent max-width="600px">
+              <v-card>
+                <v-card-title>
+                  <span class="headline">User Profile</span>
+                </v-card-title>
+                <v-card-text>
+                  <v-container>
+                    <v-row>
+                      <v-col cols="12" sm="6" md="4">
+                        <v-text-field label="First name*" v-model="fname" required></v-text-field>
+                      </v-col>
+                      <v-col cols="12" sm="6" md="4">
+                        <v-text-field label="Middle name" v-model="mname"></v-text-field>
+                      </v-col>
+                      <v-col cols="12" sm="6" md="4">
+                        <v-text-field label="Last name*" v-model="lname" persistent-hint required></v-text-field>
+                      </v-col>
+                      <v-col cols="12">
+                        <v-text-field label="Email*" v-model="email" required></v-text-field>
+                      </v-col>
+                      <v-col cols="12" sm="6">
+                        <v-text-field single-line label="Age" v-model="age" type="number"></v-text-field>
+                      </v-col>
+                      <v-col cols="12" sm="6">
+                        <v-select :items="['Male', 'Female', 'Transgender']" label="Gender" v-model="gender" required>
+                        </v-select>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                  <small>*indicates required field</small>
+                </v-card-text>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
+                  <v-btn color="blue darken-1" text @click="storeData">Save</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog class="transition-swing">
+          </v-row>
+        </template>
+      </v-content>
     </v-app>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>

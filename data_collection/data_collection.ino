@@ -10,5 +10,5 @@ void loop() {
   Serial.print(",");
   Serial.print(analogRead(A0));
   Serial.print(",");
-  Serial.println(analogRead(A6));
+  Serial.println(analogRead(A1));
 }

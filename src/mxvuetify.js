@@ -7,12 +7,11 @@ new Vue({
         mname: "",
         lname: "",
         age: 0,
-        email: ""
+        email: "",
+        gender: "",
+        accept: false,
+        alertForAccept: false
     }),
-    mounted() {
-        if(userJSON.status=="newUser")
-            this.dialog=true;
-    },
     methods: {
         storeData(){
             userJSON.fname=this.fname;
@@ -20,10 +19,22 @@ new Vue({
             userJSON.mname=this.mname;
             userJSON.age=this.age;
             userJSON.email=this.email;
+            userJSON.gender=this.gender;
             userJSON.status="getData";
             userJSON.filename=userJSON.fname+userJSON.mname+userJSON.lname+"0";
             ipc.sendSync("syncSetUserData", userJSON);
             this.dialog=false;
+        },
+        launchModal(){
+            if(userJSON.status=="newUser" && this.accept)
+                this.dialog=true;
+            else if(!this.accept){
+                this.alertForAccept=true;
+                setTimeout(this.removeError, 5000);
+            }
+        },
+        removeError(){
+            this.alertForAccept=false;
         }
     }
 })
